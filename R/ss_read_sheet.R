@@ -9,10 +9,6 @@ ss_read_sheet <- function(ss_id) {
   if(length(ss_id) != 1) {
     rlang::abort('ss_id must have length 1.')
   }
-  if(!inherits(ss_id,'character')) {
-    rlang::abort('ss_id must be a character vector.')
-  }
-  ss_id = as_ss_id(ss_id)
   path = paste0('sheets/',ss_id)
   resp = ss_get(path)
   parsed = ss_response_parse(resp)
@@ -48,22 +44,22 @@ ss_read_sheet <- function(ss_id) {
   # 3. Pivot the colnames up.
   # 4. Remove the rowNumber and unlist each cell (taking care to treat NULL as NA).
   x = tibble::tibble(row = parsed$content$rows) |>
-    unnest_wider(row) |>
-    unnest_longer(cells) |>
-    unnest_wider(cells) |>
-    group_by(rowNumber) |>
-    mutate(
-      colNumber = row_number(),
+    tidyr::unnest_wider(row) |>
+    tidyr::unnest_longer(cells) |>
+    tidyr::unnest_wider(cells) |>
+    dplyr::group_by(rowNumber) |>
+    dplyr::mutate(
+      colNumber = dplyr::row_number(),
       colname = colnames[colNumber]
     ) |>
-    ungroup() |>
-    pivot_wider(
+    dplyr::ungroup() |>
+    tidyr::pivot_wider(
       id_cols = rowNumber,
       names_from = colname,
       values_from = value
     ) |>
-    select(-rowNumber) |>
-    mutate_all(unlist_and_replace_null)
+    dplyr::select(-rowNumber) |>
+    dplyr::mutate_all(unlist_and_replace_null)
 
   return(x)
 }
