@@ -31,7 +31,7 @@ devtools::install_github("cole-johanson/smartsheetr")
 
 You will also need to [generate a smartsheet API key](https://help.smartsheet.com/articles/2482389-generate-API-key) and then add it as a global enviroment variable:
 ``` r
-Sys.setenv("SMARTSHEET_API_TOKEN")
+Sys.setenv("SMARTSHEET_API_TOKEN" = <your token>)
 ```
 
 ## Example
