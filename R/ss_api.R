@@ -39,47 +39,82 @@ ss_api <- function(FUN, ...) {
   if(!'path' %in% names(args)) {
     rlang::abort('Calls to the smartsheetr API must contain a path argument')
   }
-  args[['url']] = httr::modify_url("https://api.smartsheet.com/", path = paste0('2.0/',args[['path']]))
+  path = args[['path']]
+  args[['url']] = httr::modify_url("https://api.smartsheet.com/", path = paste0('2.0/', path))
   args[['path']] = NULL
 
   resp = do.call(FUN, args)
 
-  if(httr::http_type(resp) != "application/json") {
-    stop("API did not return json", call. = FALSE)
-  }
-
-  if (httr::status_code(resp) != 200) {
-    parsed = ss_response_parse(resp, args[['url']])
-    stop(
-      sprintf(
-        "SmartSheet API request failed [%s]\n%s\n<%s>",
-        httr::status_code(resp),
-        parsed$content$message,
-        parsed$content$refId
-      ),
-      call. = FALSE
-    )
-  }
-
-  return(resp)
-}
-
-#' @describeIn ss_get Parse the response of an ss_get() call.
-#' @export
-ss_response_parse <- function(resp, url = NULL) {
   if(httr::http_type(resp) == "application/json") {
     parsed = jsonlite::fromJSON(httr::content(resp, "text"), simplifyVector = FALSE)
-    structure(
+
+    if (httr::status_code(resp) != 200) {
+      rlang::abort(
+        sprintf(
+          "SmartSheet API request failed [%s]\n%s\n<%s>",
+          httr::status_code(resp),
+          parsed$content$message,
+          parsed$content$refId
+        ),
+        call. = FALSE
+      )
+    }
+
+    ss_resp = structure(
       list(
         content = parsed,
-        url = url,
+        path = path,
         response = resp
       ),
-      class = "smartsheets_api"
+      class = c("ss_resp",class(resp))
     )
   } else {
-    stop('Unknown content type')
+    rlang::abort('Unknown content type')
   }
+
+  return(ss_resp)
+}
+
+#' @export
+print.ss_resp <- function(ss_resp_, max.lines = 10, width = getOption("width")) {
+  cat("Response [", ss_resp_$response$url, "]\n", sep = "")
+  cat("  Status: ", ss_resp_$response$status_code, "\n", sep = "")
+
+  print_content(ss_resp_$response)
+}
+
+#' @export
+print.ss_writesheet_resp <- function(ss_writesheet_resp_, max.lines = 10, width = getOption("width")) {
+  col_resp = ss_writesheet_resp_$responses$ss_addcolumns_resp$response
+  row_resp = ss_writesheet_resp_$responses$ss_addrows_resp$response
+
+  cat("Response (columns): ", col_resp$url, "\n", sep = "")
+  cat("Response (rows): ", row_resp$url, "\n", sep = "")
+  cat("Status (columns): ", col_resp$status_code, "\n", sep = "")
+  cat("Status (rows): ", row_resp$status_code, "\n", sep = "")
+  cat("Content (columns): ")
+  print(col_resp)
+  cat("Content (rows): ")
+  print(row_resp)
+}
+
+# Helper taken from https://github.com/r-lib/httr/blob/main/R/response.r
+print_content <- function(x, max.lines = 10, width = getOption("width")) {
+  if(!inherits(x, "response")) rlang::abort('x must be a response object')
+
+  suppressMessages(text <- httr::content(x, "text"))
+
+  breaks <- gregexpr("\n", text, fixed = TRUE)[[1]]
+  last_line <- breaks[min(length(breaks), max.lines)]
+  lines <- strsplit(substr(text, 1, last_line), "\n")[[1]]
+
+  too_wide <- nchar(lines) > width
+  lines[too_wide] <- paste0(substr(lines[too_wide], 1, width - 3), "...")
+
+  cat(lines, sep = "\n")
+  if (max.lines < length(breaks)) cat("...\n")
+
+  invisible(x)
 }
 
 #' Helper to rbind lists in a list into a data frame

@@ -3,14 +3,11 @@
 \name{ss_get}
 \alias{ss_get}
 \alias{ss_post}
-\alias{ss_response_parse}
 \title{Smartsheet GET}
 \usage{
 ss_get(path, ...)
 
 ss_post(path, body, ...)
-
-ss_response_parse(resp, url = NULL)
 }
 \arguments{
 \item{path}{A character vector to add to the API url. See (https://smartsheet.redoc.ly/#section/Introduction)
@@ -31,7 +28,5 @@ other \code{smarsheetr} functions.
 \section{Functions}{
 \itemize{
 \item \code{ss_post()}: SmartSheet POST
-
-\item \code{ss_response_parse()}: Parse the response of an ss_get() call.
 
 }}

@@ -7,7 +7,7 @@
 ss_read_sheet(ss_id)
 }
 \arguments{
-\item{ss_id}{The id (or permalink) of the table to read}
+\item{ss_id}{The sheetId (or permalink) of the table to read}
 }
 \value{
 A tibble::tbl_df object

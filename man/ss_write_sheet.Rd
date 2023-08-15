@@ -9,10 +9,7 @@ ss_write_sheet(sheet_name, df = data.frame(PK = character()))
 \arguments{
 \item{sheet_name}{A character vector}
 
-\item{df}{}
-
-\item{columns}{A data.frame containing at least a \code{title} column. Other available options are described
-in the \href{https://smartsheet.redoc.ly/tag/columnsObjects#section/Column-Object}{Smartsheet API Columns reference}.}
+\item{df}{A data frame}
 }
 \value{
 A smartsheetsr response object
