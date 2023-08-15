@@ -1,40 +1,21 @@
 #' Require either a sheet name or a link,
 #'
-#' @param ss_id The id (or permalink) of the table to read
+#' @param ss_id The sheetId (or permalink) of the table to read
 #'
 #' @return A tibble::tbl_df object
 #'
 #' @export
 ss_read_sheet <- function(ss_id) {
-  if(length(ss_id) != 1) {
-    rlang::abort('ss_id must have length 1.')
-  }
-  path = paste0('sheets/',ss_id)
-  resp = ss_get(path)
-  parsed = ss_response_parse(resp)
+  ss_id = validate_ss_id(ss_id)
+  resp = ss_get(path = paste0('sheets/',ss_id))
 
-  # parsed$content structure:
-  # {
-  #   "id", "name", "version", ...,
-  #   "columns": {
-  #     [[1]] { "id", "version", ..., "title", ...},
-  #     ...
-  #   }
-  #   "rows": {
-  #     [[[1]] {
-  #       "id", "rowNumber", ...,
-  #       "cells": {
-  #         [[1]] { "columnId", "value", ...},
-  #         [[2]] { "columnId", "value", ...}
-  #       }
-  #     },
-  #     ...
-  #   },
-  #   ...
-  # }
+  # resp$content is a list containing
+  #   - columns: A data frame with id, version and title
+  #   - rows: A list of lists containing id, rowNumber, and a data frame 'cells' of collumnId and value for
+  #           each column.
 
   # Record the column names
-  colnames = ss_resp_data_to_dataframe(parsed$content$columns)$title
+  colnames = ss_resp_data_to_dataframe(resp$content$columns)$title
 
   # 1. Parse the row cells (one row in the data frame per cell in the table). The "value" column is a list
   #    of lists to prevent the column types from mixing (i.e. list(list("a"),list(1))) is valid but c("a",1)
@@ -43,7 +24,7 @@ ss_read_sheet <- function(ss_id) {
   #    colname.
   # 3. Pivot the colnames up.
   # 4. Remove the rowNumber and unlist each cell (taking care to treat NULL as NA).
-  x = tibble::tibble(row = parsed$content$rows) |>
+  x = tibble::tibble(row = resp$content$rows) |>
     tidyr::unnest_wider(row) |>
     tidyr::unnest_longer(cells) |>
     tidyr::unnest_wider(cells) |>
@@ -64,6 +45,7 @@ ss_read_sheet <- function(ss_id) {
   return(x)
 }
 
+# Helper function for nested lists
 unlist_and_replace_null <- function(l) {
   unlist(purrr::map(l, ~if(is.null(.x)) {NA} else {.x}))
 }

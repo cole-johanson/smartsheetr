@@ -34,14 +34,14 @@ Upload a sample data frame, and read it back into R:
 
 ``` r
 ss_mtcars_resp = smartsheetr::ss_write_sheet("mtcars", mtcars)
-ss_mtcars_sheetid = smartsheetr::ss_response_parse(ss_mtcars_resp)$content$result[[1]]$sheetId
+ss_mtcars_sheetid = smartsheetr::ss_sheetid(ss_mtcars_resp)
 smartsheetr::ss_get_sheets() |> dplyr::filter(name == 'mtcars')
 #>             id   name accessLevel
-#> 1 5.597747e+15 mtcars       OWNER
+#> 1 5.188358e+15 mtcars       OWNER
 #>                                                                    permalink
-#> 1 https://app.smartsheet.com/sheets/HqVM92hqcCfJGVV94ffFxjhQm4RWQmqrCQfPRwf1
+#> 1 https://app.smartsheet.com/sheets/hRxXQMVW9c5w6xg6Cp52p3vhfR6xFh6mX7rcRjg1
 #>              createdAt           modifiedAt
-#> 1 2023-08-14T17:47:41Z 2023-08-14T17:47:41Z
+#> 1 2023-08-15T19:36:39Z 2023-08-15T19:36:39Z
 smartsheetr::ss_read_sheet(ss_mtcars_sheetid)
 #> # A tibble: 32 × 11
 #>      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb

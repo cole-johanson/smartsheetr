@@ -29,7 +29,7 @@ You can install the development version of smartsheetr from [GitHub](https://git
 devtools::install_github("cole-johanson/smartsheetr")
 ```
 
-You will also need to [generate a smartsheet API key](https://help.smartsheet.com/articles/2482389-generate-API-key) and then add it as a global enviroment variable:
+You will also need to [generate a smartsheet API key](https://help.smartsheet.com/articles/2482389-generate-API-key) and then add it as a global environment variable:
 ``` r
 Sys.setenv("SMARTSHEET_API_TOKEN" = <your token>)
 ```
@@ -40,7 +40,7 @@ Upload a sample data frame, and read it back into R:
 
 ```{r}
 ss_mtcars_resp = smartsheetr::ss_write_sheet("mtcars", mtcars)
-ss_mtcars_sheetid = smartsheetr::ss_response_parse(ss_mtcars_resp)$content$result[[1]]$sheetId
+ss_mtcars_sheetid = smartsheetr::ss_sheetid(ss_mtcars_resp)
 smartsheetr::ss_get_sheets() |> dplyr::filter(name == 'mtcars')
 smartsheetr::ss_read_sheet(ss_mtcars_sheetid)
 ```

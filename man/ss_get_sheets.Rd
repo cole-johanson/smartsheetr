@@ -2,12 +2,12 @@
 % Please edit documentation in R/ss_get_sheets.R
 \name{ss_get_sheets}
 \alias{ss_get_sheets}
-\title{Get a data frame describing the Smartsheets available}
+\title{Get a data frame describing the smartsheets available}
 \usage{
 ss_get_sheets()
 }
 \description{
-Get a data frame describing the Smartsheets available
+Get a data frame describing the smartsheets available
 }
 \details{
 Note that the environment variable SMARTSHEET_API_TOKEN should be defined in order to run this or any

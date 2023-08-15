@@ -5,9 +5,7 @@
 #' allows for the columns option.
 #'
 #' @param sheet_name A character vector
-#' @param columns A data.frame containing at least a `title` column. Other available options are described
-#' in the [Smartsheet API Columns reference](https://smartsheet.redoc.ly/tag/columnsObjects#section/Column-Object).
-#' @param df
+#' @param df A data frame
 #'
 #' @return A smartsheetsr response object
 #'
@@ -19,42 +17,34 @@ ss_write_sheet <- function(sheet_name, df = data.frame("PK" = character())) {
   if(!inherits(sheet_name,'character')) {
     rlang::abort('sheet_name must be a character vector.')
   }
-  cols = ss_columns(df)
-  path='sheets'
-  resp = ss_post(path=path, body = to_json(list(name = sheet_name, columns = cols)))
-
-  if(nrow(df) == 0) return(resp)
-
-  sheet_info = ss_resp_get_sheet_info(resp)
-  sheetid = sheet_info$sheet_id
-  body = ss_write_rows_json(df, column_ids = sheet_info$column_ids)
-
-  # Add rows
-  path = paste0('sheets/',sheetid,'/rows')
-  ss_post(
-    path = path,
-    body = body
-  )
-}
-
-ss_resp_get_sheet_info <- function(resp) {
-  result = ss_response_parse(resp)$content$result
-
-  list(
-    sheet_id = result$id,
-    column_ids = ss_resp_data_to_dataframe(result$columns)[,'id']
-  )
-}
-
-ss_write_rows_json <- function(df, column_ids) {
-  row_data = list()
-  for(i in 1:nrow(df)) {
-    cell_data = list()
-    for(j in 1:ncol(df)) {
-      cell_data[[j]] = list(columnId = unlist(column_ids[j]), value = df[i,j])
-    }
-    row_data[[i]] = list(toTop = T, cells = cell_data)
+  if(!inherits(df,'data.frame')) {
+    rlang::abort('df must be a data frame.')
   }
+  cols = ss_columns(df)
+  col_resp = ss_add_columns(sheet_name, cols)
 
-  to_json(row_data)
+  if(nrow(df) == 0) return(col_resp)
+
+  ss_id = ss_sheetid(col_resp)
+  column_ids = ss_resp_data_to_dataframe(col_resp$content$result$columns)$id
+  row_resp = ss_add_rows(ss_id, df, column_ids = column_ids)
+
+  resp = structure(
+    list(
+      content = list(
+        id = col_resp$content$result$id,
+        name = col_resp$content$result$name,
+        permalink = col_resp$content$result$permalink,
+        columns = col_resp$content$result$columns,
+        rows = row_resp$content$result
+      ),
+      responses = list(
+        ss_addcolumns_resp = col_resp,
+        ss_addrows_resp = row_resp
+      )
+    ),
+    class = 'ss_writesheet_resp'
+  )
+
+  return(resp)
 }
