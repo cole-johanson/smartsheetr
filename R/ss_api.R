@@ -53,10 +53,9 @@ ss_api <- function(FUN, ...) {
         sprintf(
           "SmartSheet API request failed [%s]\n%s\n<%s>",
           httr::status_code(resp),
-          parsed$content$message,
-          parsed$content$refId
-        ),
-        call. = FALSE
+          parsed$message,
+          parsed$refId
+        )
       )
     }
 

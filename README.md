@@ -22,7 +22,7 @@ devtools::install_github("cole-johanson/smartsheetr")
 
 You will also need to [generate a smartsheet API
 key](https://help.smartsheet.com/articles/2482389-generate-API-key) and
-then add it as a global enviroment variable:
+then add it as a global environment variable:
 
 ``` r
 Sys.setenv("SMARTSHEET_API_TOKEN" = <your token>)
@@ -37,11 +37,14 @@ ss_mtcars_resp = smartsheetr::ss_write_sheet("mtcars", mtcars)
 ss_mtcars_sheetid = smartsheetr::ss_sheetid(ss_mtcars_resp)
 smartsheetr::ss_get_sheets() |> dplyr::filter(name == 'mtcars')
 #>             id   name accessLevel
-#> 1 5.188358e+15 mtcars       OWNER
+#> 1 3.320559e+14 mtcars       OWNER
+#> 2 4.872863e+15 mtcars       OWNER
 #>                                                                    permalink
-#> 1 https://app.smartsheet.com/sheets/hRxXQMVW9c5w6xg6Cp52p3vhfR6xFh6mX7rcRjg1
+#> 1 https://app.smartsheet.com/sheets/p3JwCW24FvJpMcVcRx93C5rprXfJp6Gr4RVwXvp1
+#> 2 https://app.smartsheet.com/sheets/2XGHPPwpVR22CM23cqhgRppXx65CVxWcmvRX7371
 #>              createdAt           modifiedAt
-#> 1 2023-08-15T19:36:39Z 2023-08-15T19:36:39Z
+#> 1 2023-08-15T21:17:43Z 2023-08-15T21:17:43Z
+#> 2 2023-08-15T21:09:18Z 2023-08-15T21:09:18Z
 smartsheetr::ss_read_sheet(ss_mtcars_sheetid)
 #> # A tibble: 32 × 11
 #>      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
