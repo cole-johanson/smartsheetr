@@ -1,6 +1,6 @@
 #' Add rows to a sheet.
 #'
-#' @param ss_id The smartsheets sheetId
+#' @param ss_id The sheetId (or permalink) of the table to read
 #' @param df A data frame of rows to add
 #' @param column_ids A vector of the columnIds of the smartsheets sheetId. If `NULL`, this will be obtained.
 #'
@@ -9,7 +9,8 @@ ss_add_rows <- function(ss_id, df, column_ids = NULL) {
   ss_id = validate_ss_id(ss_id)
 
   if(is.null(column_ids)) {
-    col_resp = resp = ss_get(path = paste0('sheets/',ss_id))
+    col_resp = ss_get(path = paste0('sheets/',ss_id))
+    column_ids = ss_resp_data_to_dataframe(col_resp$content$columns)$id
   }
 
   row_data = list()

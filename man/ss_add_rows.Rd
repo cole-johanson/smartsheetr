@@ -7,7 +7,7 @@
 ss_add_rows(ss_id, df, column_ids = NULL)
 }
 \arguments{
-\item{ss_id}{The smartsheets sheetId}
+\item{ss_id}{The sheetId (or permalink) of the table to read}
 
 \item{df}{A data frame of rows to add}
 

@@ -5,7 +5,7 @@
 #' other `smarsheetr` functions.
 #'
 #' @export
-ss_get_sheets <- function() {
+ss_list_sheets <- function() {
   resp = ss_get(path='sheets')
   # TODO: Handle pagination
   ss_resp_data_to_dataframe(resp$content$data)
