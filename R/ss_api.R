@@ -73,8 +73,7 @@ ss_api <- function(FUN, ...) {
           httr::status_code(resp),
           parsed$message,
           parsed$refId
-        ),
-        call. = FALSE
+        )
       )
     }
 
