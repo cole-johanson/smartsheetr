@@ -24,7 +24,14 @@ ss_read_sheet <- function(ss_id) {
   #    colname.
   # 3. Pivot the colnames up.
   # 4. Remove the rowNumber and unlist each cell (taking care to treat NULL as NA).
-  x = tibble::tibble(row = resp$content$rows) |>
+  rows = tibble::tibble(row = resp$content$rows)
+
+  if(nrow(rows) == 0) {
+    ss_cols_data = ss_resp_data_to_dataframe(resp$content$columns)
+    return(tibble::as_tibble(ss_cols_to_dataframe(ss_cols_data)))
+  }
+
+  x = rows |>
     tidyr::unnest_wider(row) |>
     tidyr::unnest_longer(cells) |>
     tidyr::unnest_wider(cells) |>
@@ -45,7 +52,39 @@ ss_read_sheet <- function(ss_id) {
   return(x)
 }
 
-# Helper function for nested lists
+#' Helper function to replace NULL values with NA, and unlist, which is useful in converting nested lists
+#' to data frames
 unlist_and_replace_null <- function(l) {
   unlist(purrr::map(l, ~if(is.null(.x)) {NA} else {.x}))
+}
+
+#' Helper function to take columns data and create a data frame.
+ss_cols_to_dataframe <- function(ss_cols_data) {
+  purrr::map(ss_cols_data$type, ss_column_type_to_class) |>
+    rlang::set_names(ss_cols_data$title) |>
+    as.data.frame()
+}
+
+#' Return an empty vector of the correct class from the smartsheet Column Type
+#'
+#' The opposite of \code{\link{ss_column_type}}
+#'
+#' @param ss_column_type A character vector representing a smartsheet Column Type
+#'
+#' @details
+#' See [https://smartsheet.redoc.ly/tag/columnsRelated/#section/Column-Types]
+#'
+#' @param r_class A character vector (returned from a call to `base::class()`)
+#'
+#' @return A character vector
+#'
+#' @export
+ss_column_type_to_class <- function(ss_column_type) {
+  if(ss_column_type == "DATE") {
+    as.Date(x = integer(0))
+  } else if(ss_column_type == "DATETIME") {
+    as.POSIXlt(x = integer(0))
+  } else if(ss_column_type == "TEXT_NUMBER") {
+    character()
+  }
 }

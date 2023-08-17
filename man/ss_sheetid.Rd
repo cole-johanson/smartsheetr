@@ -7,7 +7,7 @@
 ss_sheetid(resp)
 }
 \arguments{
-\item{resp}{A ss_resp object}
+\item{resp}{An ss_resp object}
 }
 \value{
 A numeric sheetId

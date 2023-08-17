@@ -14,13 +14,13 @@ validate_ss_id <- function(ss_id) {
   if(inherits(ss_id, "numeric")) return(ss_id)
 
   # Some undocumented "magic"
-  if(inherits(ss_id, c("ss_addcolumns_resp", "ss_addrows_resp"))) {
+  if(inherits(ss_id, c("ss_createsheet_resp", "ss_addrows_resp"))) {
     return(ss_sheetid(ss_id))
   }
 
   if(!inherits(ss_id, "character")) rlang::abort('ss_id must be a numeric or character vector')
 
-  ss_sheets = ss_get_sheets()
+  ss_sheets = ss_list_sheets()
   if(grepl('^http',ss_id)) {
     sheetId = ss_sheets[which(ss_sheets$permalink == ss_id),]$id
     if(length(sheetId) == 0) {

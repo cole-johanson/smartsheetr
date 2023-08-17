@@ -20,8 +20,7 @@ ss_write_sheet <- function(sheet_name, df = data.frame("PK" = character())) {
   if(!inherits(df,'data.frame')) {
     rlang::abort('df must be a data frame.')
   }
-  cols = ss_columns(df)
-  col_resp = ss_add_columns(sheet_name, cols)
+  col_resp = ss_create_sheet_with_columns(sheet_name, df)
 
   if(nrow(df) == 0) return(col_resp)
 
@@ -39,12 +38,35 @@ ss_write_sheet <- function(sheet_name, df = data.frame("PK" = character())) {
         rows = row_resp$content$result
       ),
       responses = list(
-        ss_addcolumns_resp = col_resp,
+        ss_createsheet_resp = col_resp,
         ss_addrows_resp = row_resp
       )
     ),
     class = 'ss_writesheet_resp'
   )
 
+  return(resp)
+}
+
+#' Write the initial columns for the a sheet
+#'
+#' @param sheet_name A character vector
+#' @param df A data frame of columns to be added
+#'
+#' @details See [Smartsheets API Columns Object Reference](https://smartsheet.redoc.ly/tag/columnsObjects#section/Column-Object).
+#'
+#' @return A `ss_addcolumns_resp` object
+#'
+#' @export
+ss_create_sheet_with_columns <- function(sheet_name, df) {
+  cols_ = data.frame(title = colnames(df))
+  cols_$primary = c(T,rep(F,ncol(df)-1)) # Assume first column is the primary
+  cols_$type = purrr::map(purrr::map(df,class), ss_column_type)
+
+  resp = ss_post(path='sheets', body = to_json(list(
+    name = sheet_name,
+    columns = cols_
+  )))
+  class(resp) = c("ss_createsheet_resp", class(resp))
   return(resp)
 }

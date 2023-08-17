@@ -1,6 +1,6 @@
 #' Get a smartsheet sheetId from a response
 #'
-#' @param resp A ss_resp object
+#' @param resp An ss_resp object
 #'
 #' @return A numeric sheetId
 #'
@@ -10,8 +10,8 @@ ss_sheetid <- function(resp) {
 }
 
 #' @export
-ss_sheetid.ss_addcolumns_resp <- function(ss_addcolumns_resp) {
-  ss_addcolumns_resp$content$result$id
+ss_sheetid.ss_createsheet_resp <- function(ss_createsheet_resp) {
+  ss_createsheet_resp$content$result$id
 }
 
 #' @export

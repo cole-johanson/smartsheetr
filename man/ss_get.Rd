@@ -3,11 +3,17 @@
 \name{ss_get}
 \alias{ss_get}
 \alias{ss_post}
+\alias{ss_delete}
+\alias{ss_put}
 \title{Smartsheet GET}
 \usage{
 ss_get(path, ...)
 
 ss_post(path, body, ...)
+
+ss_delete(path, ...)
+
+ss_put(path, ...)
 }
 \arguments{
 \item{path}{A character vector to add to the API url. See (https://smartsheet.redoc.ly/#section/Introduction)
@@ -28,5 +34,9 @@ other \code{smarsheetr} functions.
 \section{Functions}{
 \itemize{
 \item \code{ss_post()}: SmartSheet POST
+
+\item \code{ss_delete()}: SmartSheet POST
+
+\item \code{ss_put()}: SmartSheet POST
 
 }}

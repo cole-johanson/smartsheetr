@@ -35,7 +35,7 @@ Upload a sample data frame, and read it back into R:
 ``` r
 ss_mtcars_resp = smartsheetr::ss_write_sheet("mtcars", mtcars)
 ss_mtcars_sheetid = smartsheetr::ss_sheetid(ss_mtcars_resp)
-smartsheetr::ss_get_sheets() |> dplyr::filter(name == 'mtcars')
+smartsheetr::ss_list_sheets() |> dplyr::filter(name == 'mtcars')
 #>             id   name accessLevel
 #> 1 5.188358e+15 mtcars       OWNER
 #>                                                                    permalink
