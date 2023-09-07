@@ -6,11 +6,12 @@
 #'
 #' @param sheet_name A character vector
 #' @param df A data frame
+#' @param use_rownames Logical; whether to use the rownames as the Primary Column
 #'
-#' @return A smartsheetsr response object
+#' @return A smartsheetr response object
 #'
 #' @export
-ss_write_sheet <- function(sheet_name, df = data.frame("PK" = character())) {
+ss_write_sheet <- function(sheet_name, df = data.frame("PK" = character()), use_rownames=F) {
   if(length(sheet_name) != 1) {
     rlang::abort('sheet_name must have length 1.')
   }
@@ -19,6 +20,10 @@ ss_write_sheet <- function(sheet_name, df = data.frame("PK" = character())) {
   }
   if(!inherits(df,'data.frame')) {
     rlang::abort('df must be a data frame.')
+  }
+  if(use_rownames) {
+    df[["PK"]] = rownames(df)
+    df = df[, c("PK", setdiff(colnames(df),"PK"))]
   }
   col_resp = ss_create_sheet_with_columns(sheet_name, df)
 

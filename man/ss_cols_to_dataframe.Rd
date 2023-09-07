@@ -6,6 +6,9 @@
 \usage{
 ss_cols_to_dataframe(ss_cols_data)
 }
+\arguments{
+\item{ss_cols_data}{A data frame}
+}
 \description{
 Helper function to take columns data and create a data frame.
 }

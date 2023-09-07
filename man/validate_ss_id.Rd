@@ -7,7 +7,7 @@
 validate_ss_id(ss_id)
 }
 \arguments{
-\item{x}{A smartsheet sheet name, permalink, of sheetId}
+\item{ss_id}{A smartsheet sheet name, permalink, of sheetId}
 }
 \value{
 A smartsheets sheetId

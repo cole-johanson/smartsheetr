@@ -54,11 +54,17 @@ ss_read_sheet <- function(ss_id) {
 
 #' Helper function to replace NULL values with NA, and unlist, which is useful in converting nested lists
 #' to data frames
+#'
+#' @param l A list
+#'
 unlist_and_replace_null <- function(l) {
   unlist(purrr::map(l, ~if(is.null(.x)) {NA} else {.x}))
 }
 
 #' Helper function to take columns data and create a data frame.
+#'
+#' @param ss_cols_data A data frame
+#'
 ss_cols_to_dataframe <- function(ss_cols_data) {
   purrr::map(ss_cols_data$type, ss_column_type_to_class) |>
     rlang::set_names(ss_cols_data$title) |>
@@ -72,13 +78,11 @@ ss_cols_to_dataframe <- function(ss_cols_data) {
 #' @param ss_column_type A character vector representing a smartsheet Column Type
 #'
 #' @details
-#' See [https://smartsheet.redoc.ly/tag/columnsRelated/#section/Column-Types]
+#' See \url{https://smartsheet.redoc.ly/tag/columnsRelated/#section/Column-Types}
 #'
-#' @param r_class A character vector (returned from a call to `base::class()`)
+#' @param ss_column_type A character vector
 #'
 #' @return A character vector
-#'
-#' @export
 ss_column_type_to_class <- function(ss_column_type) {
   if(ss_column_type == "DATE") {
     as.Date(x = integer(0))

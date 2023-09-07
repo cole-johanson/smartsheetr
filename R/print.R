@@ -1,15 +1,18 @@
-#' @export
-print.ss_resp <- function(ss_resp_, max.lines = 10, width = getOption("width")) {
-  cat("Response [", ss_resp_$response$url, "]\n", sep = "")
-  cat("  Status: ", ss_resp_$response$status_code, "\n", sep = "")
+print <- function(x, ...) UseMethod("print")
 
-  print_content(ss_resp_$response)
+print.default <- function(x, ...) base::print(x, ...)
+
+print.ss_resp <- function(x, ...) {
+  cat("Response [", x$response$url, "]\n", sep = "")
+  cat("  Status: ", x$response$status_code, "\n", sep = "")
+
+  print_content(x$response, ...)
+  NextMethod("print")
 }
 
-#' @export
-print.ss_writesheet_resp <- function(ss_writesheet_resp_, max.lines = 10, width = getOption("width")) {
-  col_resp = ss_writesheet_resp_$responses$ss_createsheet_resp$response
-  row_resp = ss_writesheet_resp_$responses$ss_addrows_resp$response
+print.ss_writesheet_resp <- function(x, ...) {
+  col_resp = x$responses$ss_createsheet_resp$response
+  row_resp = x$responses$ss_addrows_resp$response
 
   cat("Response (columns): ", col_resp$url, "\n", sep = "")
   cat("Response (rows): ", row_resp$url, "\n", sep = "")

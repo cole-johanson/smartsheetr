@@ -19,6 +19,8 @@ ss_put(path, ...)
 \item{path}{A character vector to add to the API url. See (https://smartsheet.redoc.ly/#section/Introduction)
 for more information.}
 
+\item{...}{Further arguments passed to \code{\link{ss_api}}}
+
 \item{body}{A list of objects}
 }
 \value{

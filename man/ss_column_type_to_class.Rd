@@ -7,9 +7,7 @@
 ss_column_type_to_class(ss_column_type)
 }
 \arguments{
-\item{ss_column_type}{A character vector representing a smartsheet Column Type}
-
-\item{r_class}{A character vector (returned from a call to \code{base::class()})}
+\item{ss_column_type}{A character vector}
 }
 \value{
 A character vector
@@ -18,5 +16,5 @@ A character vector
 The opposite of \code{\link{ss_column_type}}
 }
 \details{
-See \link{https://smartsheet.redoc.ly/tag/columnsRelated/#section/Column-Types}
+See \url{https://smartsheet.redoc.ly/tag/columnsRelated/#section/Column-Types}
 }

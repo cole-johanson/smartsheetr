@@ -6,6 +6,9 @@
 \usage{
 ss_resp_data_to_dataframe(resp_data)
 }
+\arguments{
+\item{resp_data}{A list of lists}
+}
 \description{
 Helper to rbind lists in a list into a data frame
 }

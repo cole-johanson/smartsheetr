@@ -16,5 +16,5 @@ A character vector
 Return the Smartsheet Column Type that aligns with the R class
 }
 \details{
-See \link{https://smartsheet.redoc.ly/tag/columnsRelated/#section/Column-Types}
+See \url{https://smartsheet.redoc.ly/tag/columnsRelated/#section/Column-Types}
 }
