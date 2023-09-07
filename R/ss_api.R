@@ -51,6 +51,9 @@ ss_put <- function(path, ...) {
 ss_api <- function(FUN, ...) {
   args = list(...)
   token = Sys.getenv("SMARTSHEET_API_TOKEN")
+  if(nchar(token) == 0) {
+    rlang::abort("Environment variable SMARTSHEET_API_TOKEN must be set. See the smartsheetr README.")
+  }
 
   args = append(
     args,
