@@ -4,6 +4,8 @@
 # smartsheetr
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/cole-johanson/smartsheetr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/cole-johanson/smartsheetr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 smartsheetr is an extensible [smartsheet](https://www.smartsheet.com/)
@@ -36,15 +38,12 @@ Upload a sample data frame, and read it back into R:
 ss_mtcars_resp = smartsheetr::ss_write_sheet("mtcars", mtcars)
 ss_mtcars_sheetid = smartsheetr::ss_sheetid(ss_mtcars_resp)
 smartsheetr::ss_list_sheets() |> dplyr::filter(name == 'mtcars')
-#>             id   name accessLevel
-#> 1 3.320559e+14 mtcars       OWNER
-#> 2 4.872863e+15 mtcars       OWNER
+#>                 id   name accessLevel
+#> 1 7914123891265412 mtcars       OWNER
 #>                                                                    permalink
-#> 1 https://app.smartsheet.com/sheets/p3JwCW24FvJpMcVcRx93C5rprXfJp6Gr4RVwXvp1
-#> 2 https://app.smartsheet.com/sheets/2XGHPPwpVR22CM23cqhgRppXx65CVxWcmvRX7371
+#> 1 https://app.smartsheet.com/sheets/4RqRFVmHMpW72CMJF7XMXwpvmh397ch5PHCW6jM1
 #>              createdAt           modifiedAt
-#> 1 2023-08-15T21:17:43Z 2023-08-15T21:17:43Z
-#> 2 2023-08-15T21:09:18Z 2023-08-15T21:09:18Z
+#> 1 2023-09-07T15:41:00Z 2023-09-07T15:41:00Z
 smartsheetr::ss_read_sheet(ss_mtcars_sheetid)
 #> # A tibble: 32 × 11
 #>      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
