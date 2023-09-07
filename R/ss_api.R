@@ -4,6 +4,7 @@
 #'
 #' @param path A character vector to add to the API url. See (https://smartsheet.redoc.ly/#section/Introduction)
 #' for more information.
+#' @param ... Further arguments passed to \code{\link{ss_api}}
 #'
 #' @details
 #' Note that the environment variable SMARTSHEET_API_TOKEN should be defined in order to run this or any
@@ -42,6 +43,11 @@ ss_put <- function(path, ...) {
   ss_api(httr::PUT, path=path, encode='json', ...)
 }
 
+#' The workhorse function that performs each call to the Smartsheet API
+#'
+#' @param FUN An http verb function, typically from the `httr` package
+#' @param ... Further parameters passed to the http verb function
+#'
 ss_api <- function(FUN, ...) {
   args = list(...)
   token = Sys.getenv("SMARTSHEET_API_TOKEN")
@@ -93,6 +99,9 @@ ss_api <- function(FUN, ...) {
 }
 
 #' Helper to rbind lists in a list into a data frame
+#'
+#' @param resp_data A list of lists
+#'
 ss_resp_data_to_dataframe <- function(resp_data) {
   purrr::map(resp_data, as.data.frame) |> purrr::list_rbind()
 }

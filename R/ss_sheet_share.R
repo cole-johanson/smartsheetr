@@ -2,7 +2,7 @@
 #'
 #' @param ss_id The sheetId (or permalink) of the table
 #' @param email The email address of the user to share to, i.e. a value in ss_get_users()$email
-#' @param access_level A character object. See \url(https://smartsheet.redoc.ly/#section/Security/Access-Levels)
+#' @param access_level A character object. See \url{https://smartsheet.redoc.ly/#section/Security/Access-Levels}
 #'
 #' @return An ss_resp object
 #'

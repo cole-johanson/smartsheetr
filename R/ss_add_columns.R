@@ -2,6 +2,7 @@
 #'
 #' @param ss_id The sheetId (or permalink) of the table to read
 #' @param df A data frame of columns to be added
+#' @param index The index location where the columns should be added
 #'
 #' @details See [Smartsheets API Columns Object Reference](https://smartsheet.redoc.ly/tag/columnsObjects#section/Column-Object).
 #'
@@ -26,7 +27,7 @@ ss_add_columns <- function(ss_id, df, index = 0) {
 #' Return the Smartsheet Column Type that aligns with the R class
 #'
 #' @details
-#' See [https://smartsheet.redoc.ly/tag/columnsRelated/#section/Column-Types]
+#' See \url{https://smartsheet.redoc.ly/tag/columnsRelated/#section/Column-Types}
 #'
 #' @param r_class A character vector (returned from a call to `base::class()`)
 #'

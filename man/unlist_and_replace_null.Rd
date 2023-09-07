@@ -7,6 +7,9 @@ to data frames}
 \usage{
 unlist_and_replace_null(l)
 }
+\arguments{
+\item{l}{A list}
+}
 \description{
 Helper function to replace NULL values with NA, and unlist, which is useful in converting nested lists
 to data frames

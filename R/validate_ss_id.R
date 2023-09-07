@@ -2,7 +2,7 @@
 #'
 #' This function validates a single ss_id is passed in and returns a smartsheets sheetId
 #'
-#' @param x A smartsheet sheet name, permalink, of sheetId
+#' @param ss_id A smartsheet sheet name, permalink, of sheetId
 #'
 #' @return A smartsheets sheetId
 validate_ss_id <- function(ss_id) {

@@ -4,15 +4,17 @@
 \alias{ss_write_sheet}
 \title{Create a sheet}
 \usage{
-ss_write_sheet(sheet_name, df = data.frame(PK = character()))
+ss_write_sheet(sheet_name, df = data.frame(PK = character()), use_rownames = F)
 }
 \arguments{
 \item{sheet_name}{A character vector}
 
 \item{df}{A data frame}
+
+\item{use_rownames}{Logical; whether to use the rownames as the Primary Column}
 }
 \value{
-A smartsheetsr response object
+A smartsheetr response object
 }
 \description{
 Creating a sheet requires either a template or a set of columns

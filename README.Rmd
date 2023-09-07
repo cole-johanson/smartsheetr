@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 # smartsheetr
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/cole-johanson/smartsheetr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/cole-johanson/smartsheetr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 smartsheetr is an extensible [smartsheet](https://www.smartsheet.com/) API client. It utilizes the API to push/pull data frames as smartsheet documents.

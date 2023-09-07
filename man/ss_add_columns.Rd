@@ -10,6 +10,8 @@ ss_add_columns(ss_id, df, index = 0)
 \item{ss_id}{The sheetId (or permalink) of the table to read}
 
 \item{df}{A data frame of columns to be added}
+
+\item{index}{The index location where the columns should be added}
 }
 \value{
 A \code{ss_createsheet_resp} object
