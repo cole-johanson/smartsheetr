@@ -2,16 +2,24 @@
 % Please edit documentation in R/ss_read_sheet.R
 \name{ss_read_sheet}
 \alias{ss_read_sheet}
-\title{Require either a sheet name or a link,}
+\alias{ss_read_reports}
+\title{Read a smartsheets sheet/report}
 \usage{
-ss_read_sheet(ss_id)
+ss_read_sheet(ss_id, endpoint = c("sheets", "reports"))
+
+ss_read_reports(ss_id)
 }
 \arguments{
 \item{ss_id}{The sheetId (or permalink) of the table to read}
+
+\item{endpoint}{either the "sheets" or "reports" API endpoint}
 }
 \value{
-A tibble::tbl_df object
+A \link[tibble:tbl_df-class]{tibble::tbl_df} object
 }
 \description{
+Read a smartsheets sheet/report
+}
+\details{
 Require either a sheet name or a link,
 }
