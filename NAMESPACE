@@ -3,6 +3,7 @@
 S3method(ss_sheetid,ss_addrows_resp)
 S3method(ss_sheetid,ss_createsheet_resp)
 S3method(ss_sheetid,ss_writesheet_resp)
+export(random_sheet_name)
 export(ss_add_columns)
 export(ss_add_rows)
 export(ss_column_type)

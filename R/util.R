@@ -9,3 +9,12 @@
 to_json <- function(...) {
   jsonlite::toJSON(..., auto_unbox = T)
 }
+
+#' Get a random sheet name
+#'
+#' Randomly selects letters for a Smartsheet sheet name
+#'
+#' @export
+random_sheet_name <- function(n=10) {
+  paste0(sample(c(LETTERS,letters), size=n, replace=TRUE), collapse="")
+}

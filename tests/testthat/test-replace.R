@@ -2,6 +2,7 @@ small_df = data.frame(primary_key = c(1,2), other_field = c(3,4))
 big_df = mtcars
 
 test_that("Replacing a small sheet with a big one works", {
+  skip_if_offline()
   small_df = data.frame(primary_key = c(1,2), other_field = c(3,4))
   big_df = mtcars
 
@@ -15,6 +16,7 @@ test_that("Replacing a small sheet with a big one works", {
 })
 
 test_that("Replacing a big sheet with a small one works", {
+  skip_if_offline()
   resp = ss_write_sheet("big_to_small", big_df)
   ss_id = ss_sheetid(resp)
   ss_replace_sheet(ss_id, small_df)

@@ -1,22 +1,28 @@
 Package: smartsheetr
-Title: What the Package Does (One Line, Title Case)
+Title: Access and Write Smartsheet data using the Smartsheet API 2.0
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+  person("Cole", "Johanson", , "coldenjohanson@gmail.com", role = c("aut", "cre"))
+Description: Interact with the Smartsheet platform through the Smartsheet 
+  API 2.0. <https://smartsheet.redoc.ly/>. "API" is an acronym for
+  "application programming interface"; the Smartsheet API allows users to
+  interact with Smartsheet sheets programmatically, instead of via a web
+  browser. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+Depends:
+  R (>= 4.1.0)
 Imports:
-  dplyr,
-  httr,
-  jsonlite,
-  purrr,
-  rlang,
-  tibble,
-  tidyr
+    dplyr,
+    httr,
+    jsonlite,
+    memoise,
+    purrr,
+    rlang,
+    tibble,
+    tidyr
 Suggests: 
   devtools,
   knitr,
