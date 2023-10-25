@@ -1,13 +1,17 @@
-#' Require either a sheet name or a link,
+#' Read a smartsheets sheet/report
+#'
+#' @details Require either a sheet name or a link,
 #'
 #' @param ss_id The sheetId (or permalink) of the table to read
+#' @param endpoint either the "sheets" or "reports" API endpoint
 #'
-#' @return A tibble::tbl_df object
+#' @return A [tibble::tbl_df] object
 #'
 #' @export
-ss_read_sheet <- function(ss_id) {
+ss_read_sheet <- function(ss_id, endpoint = c("sheets", "reports")) {
+  path = match.arg(endpoint)
   ss_id = validate_ss_id(ss_id)
-  resp = ss_get(path = paste0('sheets/',ss_id))
+  resp = ss_get(path = paste0(path, '/', ss_id))
 
   # resp$content is a list containing
   #   - columns: A data frame with id, version and title
@@ -50,6 +54,12 @@ ss_read_sheet <- function(ss_id) {
     dplyr::mutate_all(unlist_and_replace_null)
 
   return(x)
+}
+
+#' @rdname ss_read_sheet
+#' @export
+ss_read_reports <- function(ss_id) {
+  ss_read_sheet(ss_id = ss_id, endpoint = "reports")
 }
 
 #' Helper function to replace NULL values with NA, and unlist, which is useful in converting nested lists

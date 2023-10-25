@@ -2,12 +2,18 @@
 % Please edit documentation in R/ss_list_sheets.R
 \name{ss_list_sheets}
 \alias{ss_list_sheets}
-\title{Get a data frame describing the smartsheets available}
+\alias{ss_list_reports}
+\title{Get a data frame describing the smartsheets/reports available}
 \usage{
-ss_list_sheets()
+ss_list_sheets(endpoint = c("sheets", "reports"))
+
+ss_list_reports()
+}
+\arguments{
+\item{endpoint}{either the "sheets" or "reports" API endpoint}
 }
 \description{
-Get a data frame describing the smartsheets available
+Get a data frame describing the smartsheets/reports available
 }
 \details{
 Note that the environment variable SMARTSHEET_API_TOKEN should be defined in order to run this or any
