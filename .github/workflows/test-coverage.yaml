@@ -48,3 +48,6 @@ jobs:
         with:
           name: coverage-test-failures
           path: ${{ runner.temp }}/package
+
+env:
+  SMARTSHEET_API_TOKEN: ${{ secrets.SMARTSHEET_API_TOKEN }}
