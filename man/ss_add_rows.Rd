@@ -20,10 +20,12 @@ A \code{ss_addrows_resp} object
 Add rows to a sheet.
 }
 \examples{
+\dontrun{
 ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name())))
 ss_add_rows(ss_id, data.frame("PK"="1"))
 ss_read_sheet(ss_id)
 # clean up
 ss_delete_sheet(ss_id)
+}
 
 }

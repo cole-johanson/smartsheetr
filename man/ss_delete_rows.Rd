@@ -18,6 +18,7 @@ A list of ss_resp objects
 Delete rows from a given sheet
 }
 \examples{
+\dontrun{
 df = data.frame(PK=c(1,2), FK=c("a","b"))
 ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name()), data=df))
 row_ids = ss_row_ids(ss_id)
@@ -25,5 +26,6 @@ ss_delete_rows(ss_id, row_ids[2])
 ss_read_sheet(ss_id)
 # clean up
 ss_delete_sheet(ss_id)
+}
 
 }

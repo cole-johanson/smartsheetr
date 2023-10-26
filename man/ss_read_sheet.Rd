@@ -16,10 +16,12 @@ A tibble::tbl_df object
 Reads a Smartsheet sheet into an R data frame
 }
 \examples{
+\dontrun{
 df = mtcars
 ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name()), data=df))
 ss_read_sheet(ss_id)
 # clean up
 ss_delete_sheet(ss_id)
+}
 
 }

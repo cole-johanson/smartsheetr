@@ -24,11 +24,13 @@ An ss_resp object
 Share a sheet with a user
 }
 \examples{
+\dontrun{
 ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name())))
 users = ss_list_users()
 user = users[1,'email']
 ss_sheet_share(ss_id, user)
 # clean up
 ss_delete_sheet(ss_id)
+}
 
 }

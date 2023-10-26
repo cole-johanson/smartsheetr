@@ -5,11 +5,13 @@
 #' @param index The index location where the columns should be added
 #'
 #' @examples
+#' \dontrun{
 #' ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name())))
 #' ss_add_columns(ss_id, data.frame("FK"=character()), index=1)
 #' ss_read_sheet(ss_id)
 #' # clean up
 #' ss_delete_sheet(ss_id)
+#' }
 #'
 #' @return A `ss_addcolumns_resp` object
 #'

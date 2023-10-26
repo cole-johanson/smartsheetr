@@ -32,9 +32,11 @@ The first is a call to create a sheet and populate the columns (analogous to
 \link{ss_add_rows}). \link{ss_write_sheet} accomplishes both of these steps.
 }
 \examples{
+\dontrun{
 ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name()), data=mtcars))
 ss_read_sheet(ss_id)
 # clean up
 ss_delete_sheet(ss_id)
+}
 
 }

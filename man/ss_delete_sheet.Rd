@@ -16,8 +16,10 @@ A \code{ss_resp} object
 Delete a smartsheet
 }
 \examples{
+\dontrun{
 ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name())))
 ss_read_sheet(ss_id)
 ss_delete_sheet(ss_id)
+}
 
 }

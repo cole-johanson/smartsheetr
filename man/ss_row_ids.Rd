@@ -16,10 +16,12 @@ A numeric vector
 Returns a vector of the Smartsheet internal row ids for a given sheet
 }
 \examples{
+\dontrun{
 df = data.frame(PK=c(1,2), FK=c("a","b"))
 ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name()), data=df))
 ss_row_ids(ss_id)
 # clean up
 ss_delete_sheet(ss_id)
+}
 
 }

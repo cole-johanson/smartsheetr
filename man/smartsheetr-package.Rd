@@ -4,7 +4,7 @@
 \name{smartsheetr-package}
 \alias{smartsheetr}
 \alias{smartsheetr-package}
-\title{smartsheetr: Access and Write Smartsheet data using the Smartsheet API 2.0}
+\title{smartsheetr: Access and Write Smartsheet Data using the Smartsheet API 2.0}
 \description{
 Interact with the Smartsheet platform through the Smartsheet API 2.0. \url{https://smartsheet.redoc.ly/}. "API" is an acronym for "application programming interface"; the Smartsheet API allows users to interact with Smartsheet sheets programmatically, instead of via a web browser.
 }

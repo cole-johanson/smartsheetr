@@ -27,11 +27,13 @@ Rename a set of columns. One of the following must be true:
 }
 }
 \examples{
+\dontrun{
 df = data.frame("PK"=character(), "temp"=character())
 ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name()), data=df))
 ss_rename_columns(ss_id, new_names="FK", column_names="temp")
 ss_read_sheet(ss_id)
 # clean up
 ss_delete_sheet(ss_id)
+}
 
 }

@@ -17,6 +17,8 @@ Note that the environment variable SMARTSHEET_API_TOKEN should be defined in ord
 other \code{smarsheetr} functions.
 }
 \examples{
+\dontrun{
 ss_list_sheets()
+}
 
 }
