@@ -4,34 +4,44 @@
 #' (see https://smartsheet.redoc.ly/tag/sheets#operation/create-sheet-in-sheets-folder). This function only
 #' allows for the columns option.
 #'
+#' @details
+#' The [Smartsheet API 2.0](https://smartsheet.redoc.ly) uses two calls for creating a sheet with data.
+#' The first is a call to create a sheet and populate the columns (analogous to
+#' [smartsheetr::ss_write_sheet_columns]). The second is to add rows (analogous to
+#' [smartsheetr::ss_add_rows]). [smartsheetr::ss_write_sheet] accomplishes both of these steps.
+#'
 #' @param sheet_name A character vector
-#' @param df A data frame
+#' @param data A data frame
 #' @param use_rownames Logical; whether to use the rownames as the Primary Column
+#'
+#' @examples
+#' ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name()), data=mtcars))
+#' ss_read_sheet(ss_id)
+#' # clean up
+#' ss_delete_sheet(ss_id)
 #'
 #' @return A smartsheetr response object
 #'
 #' @export
-ss_write_sheet <- function(sheet_name, df = data.frame("PK" = character()), use_rownames=F) {
+ss_write_sheet <- function(sheet_name, data = data.frame("PK" = character()), use_rownames=F) {
   if(length(sheet_name) != 1) {
     rlang::abort('sheet_name must have length 1.')
   }
   if(!inherits(sheet_name,'character')) {
     rlang::abort('sheet_name must be a character vector.')
   }
-  if(!inherits(df,'data.frame')) {
-    rlang::abort('df must be a data frame.')
+  if(!inherits(data,'data.frame')) {
+    rlang::abort('data must be a data frame.')
   }
   if(use_rownames) {
-    df[["PK"]] = rownames(df)
-    df = df[, c("PK", setdiff(colnames(df),"PK"))]
+    data[["PK"]] = rownames(data)
+    data = data[, c("PK", setdiff(colnames(data),"PK"))]
   }
-  col_resp = ss_create_sheet_with_columns(sheet_name, df)
-
-  if(nrow(df) == 0) return(col_resp)
+  col_resp = ss_write_sheet_columns(sheet_name, data)
 
   ss_id = ss_sheetid(col_resp)
   column_ids = ss_resp_data_to_dataframe(col_resp$content$result$columns)$id
-  row_resp = ss_add_rows(ss_id, df, column_ids = column_ids)
+  row_resp = {if(nrow(data) > 0) ss_add_rows(ss_id, data, column_ids = column_ids) else NULL}
 
   resp = structure(
     list(
@@ -55,18 +65,29 @@ ss_write_sheet <- function(sheet_name, df = data.frame("PK" = character()), use_
 
 #' Write the initial columns for the a sheet
 #'
+#' @details
+#' The [Smartsheet API 2.0](https://smartsheet.redoc.ly) uses two calls for creating a sheet with data.
+#' The first is a call to create a sheet and populate the columns (analogous to
+#' [smartsheetr::ss_write_sheet_columns]). The second is to add rows (analogous to
+#' [smartsheetr::ss_add_rows]). [smartsheetr::ss_write_sheet] accomplishes both of these steps.
+#'
 #' @param sheet_name A character vector
-#' @param df A data frame of columns to be added
+#' @param data A data frame of columns to be added
 #'
-#' @details See [Smartsheets API Columns Object Reference](https://smartsheet.redoc.ly/tag/columnsObjects#section/Column-Object).
+#' @examples
+#' temp_sheet_name = paste0("smartsheetr-example-",random_sheet_name())
+#' ss_id = ss_sheetid(ss_write_sheet_columns(temp_sheet_name, data=mtcars))
+#' ss_read_sheet(ss_id) # No rows. Use ss_write_sheet() to write the full data frame
+#' # clean up
+#' ss_delete_sheet(ss_id)
 #'
-#' @return A `ss_addcolumns_resp` object
+#' @return A `ss_createsheet_resp` object
 #'
 #' @export
-ss_create_sheet_with_columns <- function(sheet_name, df) {
-  cols_ = data.frame(title = colnames(df))
-  cols_$primary = c(T,rep(F,ncol(df)-1)) # Assume first column is the primary
-  cols_$type = purrr::map(purrr::map(df,class), ss_column_type)
+ss_write_sheet_columns <- function(sheet_name, data=data.frame("PK" = character())) {
+  cols_ = data.frame(title = colnames(data))
+  cols_$primary = c(T,rep(F,ncol(data)-1)) # Assume first column is the primary
+  cols_$type = purrr::map(purrr::map(data,class), ss_column_type)
 
   resp = ss_post(path='sheets', body = to_json(list(
     name = sheet_name,

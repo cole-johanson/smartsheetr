@@ -5,7 +5,7 @@
 #'
 #' @param ... Passed on to \link[jsonlite]{toJSON}
 #'
-#' @export
+#' @keywords internal
 to_json <- function(...) {
   jsonlite::toJSON(..., auto_unbox = T)
 }
@@ -13,6 +13,13 @@ to_json <- function(...) {
 #' Get a random sheet name
 #'
 #' Randomly selects letters for a Smartsheet sheet name
+#'
+#' @param n The number of characters to generate
+#'
+#' @examples
+#' random_sheet_name()
+#'
+#' @return A character vector
 #'
 #' @export
 random_sheet_name <- function(n=10) {

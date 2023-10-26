@@ -8,7 +8,7 @@
   first_sheet = all_sheets[1,]
 }
 
-first_unique_sheet <- memoise::memoise(.first_unique_sheet)
+first_unique_sheet <- memoise(.first_unique_sheet)
 
 test_that("Reading via sheet name", {
   skip_if_offline()
@@ -18,12 +18,14 @@ test_that("Reading via sheet name", {
 })
 
 test_that("Reading via sheet id", {
+  skip_if_offline()
   first_sheet = first_unique_sheet()
   first_sheet_id = first_sheet$id
   expect_s3_class(ss_read_sheet(first_sheet_id),"data.frame")
 })
 
 test_that("Reading via sheet permalink", {
+  skip_if_offline()
   first_sheet = first_unique_sheet()
   first_sheet_id = first_sheet$permalink
   expect_s3_class(ss_read_sheet(first_sheet_id),"data.frame")

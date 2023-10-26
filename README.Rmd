@@ -23,6 +23,12 @@ smartsheetr is an extensible [smartsheet](https://www.smartsheet.com/) API clien
 
 ## Installation
 
+You can install the released version of smartsheetr from [CRAN](https://cran.r-project.org/) with:
+
+``` r
+install.packages("smartsheetr")
+```
+
 You can install the development version of smartsheetr from [GitHub](https://github.com/) with:
 
 ``` r

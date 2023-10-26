@@ -7,7 +7,7 @@
 ss_delete_columns(ss_id, column_ids = NULL)
 }
 \arguments{
-\item{ss_id}{The sheetId (or permalink) of the table to read}
+\item{ss_id}{The sheetId, permalink, or name of the Smartsheet sheet to read}
 
 \item{column_ids}{A vector of the smartsheet rowIds, or NULL to delete all non-primary columns}
 }
@@ -16,4 +16,14 @@ A list of ss_resp objects
 }
 \description{
 The primary column(s) cannot be deleted.
+}
+\examples{
+df = data.frame(PK=c(1,2), FK=c("a","b"))
+ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name()), data=df))
+col_ids = ss_column_ids(ss_id)
+ss_delete_columns(ss_id, col_ids[2])
+ss_read_sheet(ss_id)
+# clean up
+ss_delete_sheet(ss_id)
+
 }

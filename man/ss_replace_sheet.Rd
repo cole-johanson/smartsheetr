@@ -4,16 +4,24 @@
 \alias{ss_replace_sheet}
 \title{Replace the contents of a sheet with a new data frame}
 \usage{
-ss_replace_sheet(ss_id, df)
+ss_replace_sheet(ss_id, data)
 }
 \arguments{
-\item{ss_id}{The sheetId (or permalink) of the table to read}
+\item{ss_id}{The sheetId, permalink, or name of the Smartsheet sheet to read}
 
-\item{df}{The new sheet contents}
+\item{data}{A data frame}
 }
 \value{
 A named list of ss_resp objects
 }
 \description{
 Replace the contents of a sheet with a new data frame
+}
+\examples{
+ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name())))
+ss_replace_sheet(ss_id, data=mtcars)
+ss_read_sheet(ss_id)
+# clean up
+ss_delete_sheet(ss_id)
+
 }

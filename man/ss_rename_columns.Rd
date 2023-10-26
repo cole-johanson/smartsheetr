@@ -7,13 +7,13 @@
 ss_rename_columns(ss_id, new_names, column_names = NULL, column_locs = NULL)
 }
 \arguments{
-\item{ss_id}{The sheetId (or permalink) of the table to read}
+\item{ss_id}{The sheetId, permalink, or name of the Smartsheet sheet to read}
 
 \item{new_names}{A character vector of new names for the chosen columns}
 
 \item{column_names}{A vector of names of columns within the sheet to be replaced}
 
-\item{column_locs}{A vector of names of columns within the sheet to be replaced}
+\item{column_locs}{A vector of locations of columns within the sheet to be replaced}
 }
 \value{
 A list of ss_resp objects
@@ -25,4 +25,13 @@ Rename a set of columns. One of the following must be true:
 \item{}{column_locs is not NULL, or}
 \item{}{new_names is the same length as the number of columns of the ss_id sheet}
 }
+}
+\examples{
+df = data.frame("PK"=character(), "temp"=character())
+ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name()), data=df))
+ss_rename_columns(ss_id, new_names="FK", column_names="temp")
+ss_read_sheet(ss_id)
+# clean up
+ss_delete_sheet(ss_id)
+
 }

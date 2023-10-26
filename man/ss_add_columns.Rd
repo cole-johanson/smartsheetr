@@ -4,21 +4,26 @@
 \alias{ss_add_columns}
 \title{Add columns to an existing sheet}
 \usage{
-ss_add_columns(ss_id, df, index = 0)
+ss_add_columns(ss_id, data, index = 0)
 }
 \arguments{
-\item{ss_id}{The sheetId (or permalink) of the table to read}
+\item{ss_id}{The sheetId, permalink, or name of the Smartsheet sheet to read}
 
-\item{df}{A data frame of columns to be added}
+\item{data}{A data frame of columns to be added}
 
 \item{index}{The index location where the columns should be added}
 }
 \value{
-A \code{ss_createsheet_resp} object
+A \code{ss_addcolumns_resp} object
 }
 \description{
 Add columns to an existing sheet
 }
-\details{
-See \href{https://smartsheet.redoc.ly/tag/columnsObjects#section/Column-Object}{Smartsheets API Columns Object Reference}.
+\examples{
+ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name())))
+ss_add_columns(ss_id, data.frame("FK"=character()), index=1)
+ss_read_sheet(ss_id)
+# clean up
+ss_delete_sheet(ss_id)
+
 }

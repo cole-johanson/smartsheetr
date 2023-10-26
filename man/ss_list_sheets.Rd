@@ -6,10 +6,17 @@
 \usage{
 ss_list_sheets()
 }
+\value{
+A dataframe
+}
 \description{
 Get a data frame describing the smartsheets available
 }
 \details{
 Note that the environment variable SMARTSHEET_API_TOKEN should be defined in order to run this or any
 other \code{smarsheetr} functions.
+}
+\examples{
+ss_list_sheets()
+
 }

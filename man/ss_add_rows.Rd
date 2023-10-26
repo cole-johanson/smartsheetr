@@ -4,15 +4,26 @@
 \alias{ss_add_rows}
 \title{Add rows to a sheet.}
 \usage{
-ss_add_rows(ss_id, df, column_ids = NULL)
+ss_add_rows(ss_id, data, column_ids = NULL)
 }
 \arguments{
-\item{ss_id}{The sheetId (or permalink) of the table to read}
+\item{ss_id}{The sheetId, permalink, or name of the Smartsheet sheet to read}
 
-\item{df}{A data frame of rows to add}
+\item{data}{A data frame of rows to be added}
 
 \item{column_ids}{A vector of the columnIds of the smartsheets sheetId. If \code{NULL}, this will be obtained.}
 }
+\value{
+A \code{ss_addrows_resp} object
+}
 \description{
 Add rows to a sheet.
+}
+\examples{
+ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name())))
+ss_add_rows(ss_id, data.frame("PK"="1"))
+ss_read_sheet(ss_id)
+# clean up
+ss_delete_sheet(ss_id)
+
 }

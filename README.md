@@ -14,6 +14,13 @@ documents.
 
 ## Installation
 
+You can install the released version of smartsheetr from
+[CRAN](https://cran.r-project.org/) with:
+
+``` r
+install.packages("smartsheetr")
+```
+
 You can install the development version of smartsheetr from
 [GitHub](https://github.com/) with:
 
@@ -39,11 +46,11 @@ ss_mtcars_resp = smartsheetr::ss_write_sheet("mtcars", mtcars)
 ss_mtcars_sheetid = smartsheetr::ss_sheetid(ss_mtcars_resp)
 smartsheetr::ss_list_sheets() |> dplyr::filter(name == 'mtcars')
 #>                 id   name accessLevel
-#> 1 7914123891265412 mtcars       OWNER
+#> 1 4018535999164292 mtcars       OWNER
 #>                                                                    permalink
-#> 1 https://app.smartsheet.com/sheets/4RqRFVmHMpW72CMJF7XMXwpvmh397ch5PHCW6jM1
+#> 1 https://app.smartsheet.com/sheets/47v6g7p3hGCg9CV4gQRJrF3fmPGwxjhQJ8r92rP1
 #>              createdAt           modifiedAt
-#> 1 2023-09-07T15:41:00Z 2023-09-07T15:41:00Z
+#> 1 2023-10-25T21:39:59Z 2023-10-25T21:39:59Z
 smartsheetr::ss_read_sheet(ss_mtcars_sheetid)
 #> # A tibble: 32 × 11
 #>      mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb

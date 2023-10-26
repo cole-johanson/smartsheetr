@@ -13,7 +13,7 @@ ss_sheet_share(
 \arguments{
 \item{ss_id}{The sheetId (or permalink) of the table}
 
-\item{email}{The email address of the user to share to, i.e. a value in ss_get_users()$email}
+\item{email}{The email address of the user to share to, i.e. a value in ss_list_users()$email}
 
 \item{access_level}{A character object. See \url{https://smartsheet.redoc.ly/#section/Security/Access-Levels}}
 }
@@ -22,4 +22,13 @@ An ss_resp object
 }
 \description{
 Share a sheet with a user
+}
+\examples{
+ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name())))
+users = ss_list_users()
+user = users[1,'email']
+ss_sheet_share(ss_id, user)
+# clean up
+ss_delete_sheet(ss_id)
+
 }

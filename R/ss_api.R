@@ -1,9 +1,15 @@
-#' Smartsheet GET
+#' Execute curl commands for the Smartsheet API
 #'
-#' This is a simple wrapper around the GET function in the [Smartsheet API 2.0](https://smartsheet.redoc.ly/)
+#' `ss_get()` wraps the `httr::GET()` function
+#' `ss_post()` wraps the `httr::POST()` function
+#' `ss_put()` wraps the `httr::PUT()` function
+#' `ss_delete()` wraps the `httr::DELETE()` function
+#'
+#' @rdname ss_get
 #'
 #' @param path A character vector to add to the API url. See (https://smartsheet.redoc.ly/#section/Introduction)
 #' for more information.
+#' @param body A list of objects
 #' @param ... Further arguments passed to \code{\link{ss_api}}
 #'
 #' @details
@@ -11,34 +17,21 @@
 #' other `smarsheetr` functions.
 #'
 #' @return An httr::response object
-#'
 ss_get <- function(path, ...) {
   ss_api(httr::GET, path=path, ...)
 }
 
-#' @describeIn ss_get SmartSheet POST
-#'
-#' @param body A list of objects
-#'
-#' @export
+#' @rdname ss_get
 ss_post <- function(path, body, ...) {
   ss_api(httr::POST, path=path, body=body, encode='json', ...)
 }
 
-#' @describeIn ss_get SmartSheet POST
-#'
-#' @param body A list of objects
-#'
-#' @export
+#' @rdname ss_get
 ss_delete <- function(path, ...) {
   ss_api(httr::DELETE, path=path, encode='json', ...)
 }
 
-#' @describeIn ss_get SmartSheet POST
-#'
-#' @param body A list of objects
-#'
-#' @export
+#' @rdname ss_get
 ss_put <- function(path, ...) {
   ss_api(httr::PUT, path=path, encode='json', ...)
 }
@@ -51,6 +44,9 @@ ss_put <- function(path, ...) {
 ss_api <- function(FUN, ...) {
   args = list(...)
   token = Sys.getenv("SMARTSHEET_API_TOKEN")
+  if(nchar(token) == 0) {
+    rlang::abort("Environment variable `SMARTSHEET_API_TOKEN` must be set. See https://github.com/cole-johanson/smartsheetr#installation")
+  }
 
   args = append(
     args,

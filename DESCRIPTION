@@ -1,8 +1,8 @@
 Package: smartsheetr
-Title: Access and Write Smartsheet data using the Smartsheet API 2.0
+Title: Access and Write Smartsheet Data using the Smartsheet API 2.0
 Version: 0.0.0.9000
 Authors@R: 
-  person("Cole", "Johanson", , "coldenjohanson@gmail.com", role = c("aut", "cre"))
+  person("Cole", "Johanson", , "coldenjohanson@gmail.com", role = c("aut", "cre", "cph"))
 Description: Interact with the Smartsheet platform through the Smartsheet 
   API 2.0. <https://smartsheet.redoc.ly/>. "API" is an acronym for
   "application programming interface"; the Smartsheet API allows users to

@@ -4,6 +4,11 @@
 #' Note that the environment variable SMARTSHEET_API_TOKEN should be defined in order to run this or any
 #' other `smarsheetr` functions.
 #'
+#' @examples
+#' ss_list_sheets()
+#'
+#' @return A dataframe
+#'
 #' @export
 ss_list_sheets <- function() {
   resp = ss_get(path='sheets')

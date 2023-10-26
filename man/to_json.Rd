@@ -13,3 +13,4 @@ to_json(...)
 The default method of jsonlite::toJSON() returns values wrapped as vectors, e.g. \verb{\{"x":[1]\}}. The
 smartsheets API complains about this, so we must remove it by using the auto_unbox parameter.
 }
+\keyword{internal}

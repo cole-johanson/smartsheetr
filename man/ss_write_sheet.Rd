@@ -4,12 +4,16 @@
 \alias{ss_write_sheet}
 \title{Create a sheet}
 \usage{
-ss_write_sheet(sheet_name, df = data.frame(PK = character()), use_rownames = F)
+ss_write_sheet(
+  sheet_name,
+  data = data.frame(PK = character()),
+  use_rownames = F
+)
 }
 \arguments{
 \item{sheet_name}{A character vector}
 
-\item{df}{A data frame}
+\item{data}{A data frame}
 
 \item{use_rownames}{Logical; whether to use the rownames as the Primary Column}
 }
@@ -20,4 +24,17 @@ A smartsheetr response object
 Creating a sheet requires either a template or a set of columns
 (see https://smartsheet.redoc.ly/tag/sheets#operation/create-sheet-in-sheets-folder). This function only
 allows for the columns option.
+}
+\details{
+The \href{https://smartsheet.redoc.ly}{Smartsheet API 2.0} uses two calls for creating a sheet with data.
+The first is a call to create a sheet and populate the columns (analogous to
+\link{ss_write_sheet_columns}). The second is to add rows (analogous to
+\link{ss_add_rows}). \link{ss_write_sheet} accomplishes both of these steps.
+}
+\examples{
+ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name()), data=mtcars))
+ss_read_sheet(ss_id)
+# clean up
+ss_delete_sheet(ss_id)
+
 }

@@ -5,7 +5,7 @@
 \alias{ss_post}
 \alias{ss_delete}
 \alias{ss_put}
-\title{Smartsheet GET}
+\title{Execute curl commands for the Smartsheet API}
 \usage{
 ss_get(path, ...)
 
@@ -27,18 +27,12 @@ for more information.}
 An httr::response object
 }
 \description{
-This is a simple wrapper around the GET function in the \href{https://smartsheet.redoc.ly/}{Smartsheet API 2.0}
+\code{ss_get()} wraps the \code{httr::GET()} function
+\code{ss_post()} wraps the \code{httr::POST()} function
+\code{ss_put()} wraps the \code{httr::PUT()} function
+\code{ss_delete()} wraps the \code{httr::DELETE()} function
 }
 \details{
 Note that the environment variable SMARTSHEET_API_TOKEN should be defined in order to run this or any
 other \code{smarsheetr} functions.
 }
-\section{Functions}{
-\itemize{
-\item \code{ss_post()}: SmartSheet POST
-
-\item \code{ss_delete()}: SmartSheet POST
-
-\item \code{ss_put()}: SmartSheet POST
-
-}}

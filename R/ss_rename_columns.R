@@ -7,10 +7,18 @@
 #' \item{}{new_names is the same length as the number of columns of the ss_id sheet}
 #' }
 #'
-#' @param ss_id The sheetId (or permalink) of the table to read
+#' @param ss_id The sheetId, permalink, or name of the Smartsheet sheet to read
 #' @param new_names A character vector of new names for the chosen columns
 #' @param column_names A vector of names of columns within the sheet to be replaced
-#' @param column_locs A vector of names of columns within the sheet to be replaced
+#' @param column_locs A vector of locations of columns within the sheet to be replaced
+#'
+#' @examples
+#' df = data.frame("PK"=character(), "temp"=character())
+#' ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name()), data=df))
+#' ss_rename_columns(ss_id, new_names="FK", column_names="temp")
+#' ss_read_sheet(ss_id)
+#' # clean up
+#' ss_delete_sheet(ss_id)
 #'
 #' @return A list of ss_resp objects
 #'
@@ -22,7 +30,7 @@ ss_rename_columns <- function(ss_id, new_names, column_names = NULL, column_locs
   columns_data = ss_resp_data_to_dataframe(resp_sheet$content$columns)
 
   if(!is.null(column_names) & !is.null(column_locs)) {
-    rlang::abort("column_names or column_locs must not both be non-NULL")
+    rlang::abort("column_names or column_locs must not both be present")
   }
 
   column_ids = NULL
@@ -35,7 +43,7 @@ ss_rename_columns <- function(ss_id, new_names, column_names = NULL, column_locs
         ". As a reminder, column_names are case-sensitive."
       ))
     }
-    column_ids = columns_data[columns_data$title %in% column_names]$id
+    column_ids = columns_data[columns_data$title %in% column_names,]$id
   } else if(!is.null(column_locs)) {
     column_locs_missing = column_locs[column_locs > nrow(columns_data)]
     if(length(column_locs_missing) > 0) {
@@ -53,7 +61,6 @@ ss_rename_columns <- function(ss_id, new_names, column_names = NULL, column_locs
         "columns of the ss_id sheet (",nrow(columns_data),")."
       ))
     }
-
     column_ids = columns_data$id
   }
 

@@ -6,6 +6,16 @@
 \usage{
 random_sheet_name(n = 10)
 }
+\arguments{
+\item{n}{The number of characters to generate}
+}
+\value{
+A character vector
+}
 \description{
 Randomly selects letters for a Smartsheet sheet name
+}
+\examples{
+random_sheet_name()
+
 }

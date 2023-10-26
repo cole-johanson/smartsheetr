@@ -15,3 +15,7 @@ A numeric sheetId
 \description{
 Get a smartsheet sheetId from a response
 }
+\examples{
+ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name())))
+
+}

@@ -1,19 +1,24 @@
 #' Add columns to an existing sheet
 #'
-#' @param ss_id The sheetId (or permalink) of the table to read
-#' @param df A data frame of columns to be added
+#' @param ss_id The sheetId, permalink, or name of the Smartsheet sheet to read
+#' @param data A data frame of columns to be added
 #' @param index The index location where the columns should be added
 #'
-#' @details See [Smartsheets API Columns Object Reference](https://smartsheet.redoc.ly/tag/columnsObjects#section/Column-Object).
+#' @examples
+#' ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name())))
+#' ss_add_columns(ss_id, data.frame("FK"=character()), index=1)
+#' ss_read_sheet(ss_id)
+#' # clean up
+#' ss_delete_sheet(ss_id)
 #'
-#' @return A `ss_createsheet_resp` object
+#' @return A `ss_addcolumns_resp` object
 #'
 #' @export
-ss_add_columns <- function(ss_id, df, index = 0) {
+ss_add_columns <- function(ss_id, data, index = 0) {
   ss_id = validate_ss_id(ss_id)
 
-  cols_ = data.frame(title = colnames(df))
-  cols_$type = purrr::map(purrr::map(df,class), ss_column_type)
+  cols_ = data.frame(title = colnames(data))
+  cols_$type = purrr::map(purrr::map(data,class), ss_column_type)
   cols_$index = index
 
   resp = ss_post(
@@ -32,8 +37,6 @@ ss_add_columns <- function(ss_id, df, index = 0) {
 #' @param r_class A character vector (returned from a call to `base::class()`)
 #'
 #' @return A character vector
-#'
-#' @export
 ss_column_type <- function(r_class) {
   if(inherits(r_class, c("Date"))) {
     return("DATE")
