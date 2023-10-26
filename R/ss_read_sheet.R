@@ -18,6 +18,9 @@ ss_read_sheet <- function(ss_id) {
   ss_id = validate_ss_id(ss_id)
   resp = ss_get(path = paste0('sheets/',ss_id))
 
+  # For devtools::check()
+  cells = rowNumber = colNumber = colname = value = NULL
+
   # resp$content is a list containing
   #   - columns: A data frame with id, version and title
   #   - rows: A list of lists containing id, rowNumber, and a data frame 'cells' of collumnId and value for

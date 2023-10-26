@@ -21,9 +21,9 @@ A list of ss_resp objects
 \description{
 Rename a set of columns. One of the following must be true:
 \itemize{
-\item{}{column_names is not NULL}
-\item{}{column_locs is not NULL, or}
-\item{}{new_names is the same length as the number of columns of the ss_id sheet}
+\item{column_names is not NULL}
+\item{column_locs is not NULL, or}
+\item{new_names is the same length as the number of columns of the ss_id sheet}
 }
 }
 \examples{
