@@ -3,10 +3,12 @@
 #' @param ss_id The sheetId, permalink, or name of the Smartsheet sheet to read
 #'
 #' @examples
+#' \dontrun{
 #' ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name())))
 #' ss_list_sheet_shares(ss_id)
 #' # clean up
 #' ss_delete_sheet(ss_id)
+#' }
 #'
 #' @return A dataframe
 #'

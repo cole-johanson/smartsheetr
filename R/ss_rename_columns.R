@@ -13,12 +13,14 @@
 #' @param column_locs A vector of locations of columns within the sheet to be replaced
 #'
 #' @examples
+#' \dontrun{
 #' df = data.frame("PK"=character(), "temp"=character())
 #' ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name()), data=df))
 #' ss_rename_columns(ss_id, new_names="FK", column_names="temp")
 #' ss_read_sheet(ss_id)
 #' # clean up
 #' ss_delete_sheet(ss_id)
+#' }
 #'
 #' @return A list of ss_resp objects
 #'

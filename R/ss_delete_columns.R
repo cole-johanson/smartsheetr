@@ -6,6 +6,7 @@
 #' @param column_ids A vector of the smartsheet rowIds, or NULL to delete all non-primary columns
 #'
 #' @examples
+#' \dontrun{
 #' df = data.frame(PK=c(1,2), FK=c("a","b"))
 #' ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name()), data=df))
 #' col_ids = ss_column_ids(ss_id)
@@ -13,6 +14,7 @@
 #' ss_read_sheet(ss_id)
 #' # clean up
 #' ss_delete_sheet(ss_id)
+#' }
 #'
 #' @return A list of ss_resp objects
 #'

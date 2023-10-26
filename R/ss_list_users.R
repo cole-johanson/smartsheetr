@@ -1,7 +1,9 @@
 #' List smartsheet users
 #'
 #' @examples
+#' \dontrun{
 #' ss_list_users()
+#' }
 #'
 #' @return A dataframe
 #'

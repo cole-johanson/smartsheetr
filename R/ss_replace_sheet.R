@@ -4,11 +4,13 @@
 #' @param data A data frame
 #'
 #' @examples
+#' \dontrun{
 #' ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name())))
 #' ss_replace_sheet(ss_id, data=mtcars)
 #' ss_read_sheet(ss_id)
 #' # clean up
 #' ss_delete_sheet(ss_id)
+#' }
 #'
 #' @return A named list of ss_resp objects
 #'

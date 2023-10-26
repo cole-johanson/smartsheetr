@@ -7,12 +7,14 @@
 #' @return A numeric vector
 #'
 #' @examples
+#' \dontrun{
 #' ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name())))
 #' col_names = colnames(ss_read_sheet(ss_id))
 #' col_ids = ss_column_ids(ss_id)
 #' setNames(col_ids, col_names)
 #' # clean up
 #' ss_delete_sheet(ss_id)
+#' }
 #'
 #' @export
 ss_column_ids <- function(ss_id) {

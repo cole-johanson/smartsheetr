@@ -5,7 +5,9 @@
 #' other `smarsheetr` functions.
 #'
 #' @examples
+#' \dontrun{
 #' ss_list_sheets()
+#' }
 #'
 #' @return A dataframe
 #'

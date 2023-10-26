@@ -3,7 +3,9 @@
 #' @param resp An ss_resp object
 #'
 #' @examples
+#' \dontrun{
 #' ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name())))
+#' }
 #'
 #' @return A numeric sheetId
 #'
