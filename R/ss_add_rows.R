@@ -30,7 +30,7 @@ ss_add_rows <- function(ss_id, data, column_ids = NULL) {
     for(j in 1:ncol(data)) {
       cell_data[[j]] = list(columnId = unlist(column_ids[j]), value = unlist(data[i,j]))
     }
-    row_data[[i]] = list(toTop = T, cells = cell_data)
+    row_data[[i]] = list(toTop = TRUE, cells = cell_data)
   }
 
   path = paste0('sheets/',ss_id,'/rows')

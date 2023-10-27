@@ -7,7 +7,7 @@
 #'
 #' @keywords internal
 to_json <- function(...) {
-  jsonlite::toJSON(..., auto_unbox = T)
+  jsonlite::toJSON(..., auto_unbox = TRUE)
 }
 
 #' Get a random sheet name

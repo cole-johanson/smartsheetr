@@ -4,8 +4,8 @@ Version: 0.1.0
 Authors@R: 
   person("Cole", "Johanson", , "coldenjohanson@gmail.com", role = c("aut", "cre", "cph"))
 Description: Interact with the 'Smartsheet' platform through the 'Smartsheet' 
-  API 2.0. <https://smartsheet.redoc.ly/>. "API" is an acronym for
-  "application programming interface"; the 'Smartsheet' API allows users to
+  API 2.0. <https://smartsheet.redoc.ly/>. API is an acronym for
+  application programming interface; the 'Smartsheet' API allows users to
   interact with 'Smartsheet' sheets directly within R. 
 License: MIT + file LICENSE
 Encoding: UTF-8

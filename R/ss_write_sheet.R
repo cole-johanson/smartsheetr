@@ -25,7 +25,7 @@
 #' @return A smartsheetr response object
 #'
 #' @export
-ss_write_sheet <- function(sheet_name, data = data.frame("PK" = character()), use_rownames=F) {
+ss_write_sheet <- function(sheet_name, data = data.frame("PK" = character()), use_rownames=FALSE) {
   if(length(sheet_name) != 1) {
     rlang::abort('sheet_name must have length 1.')
   }
@@ -90,7 +90,7 @@ ss_write_sheet <- function(sheet_name, data = data.frame("PK" = character()), us
 #' @export
 ss_write_sheet_columns <- function(sheet_name, data=data.frame("PK" = character())) {
   cols_ = data.frame(title = colnames(data))
-  cols_$primary = c(T,rep(F,ncol(data)-1)) # Assume first column is the primary
+  cols_$primary = c(TRUE,rep(FALSE,ncol(data)-1)) # Assume first column is the primary
   cols_$type = purrr::map(purrr::map(data,class), ss_column_type)
 
   resp = ss_post(path='sheets', body = to_json(list(

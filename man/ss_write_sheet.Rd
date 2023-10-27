@@ -7,7 +7,7 @@
 ss_write_sheet(
   sheet_name,
   data = data.frame(PK = character()),
-  use_rownames = F
+  use_rownames = FALSE
 )
 }
 \arguments{
