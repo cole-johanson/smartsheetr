@@ -92,7 +92,12 @@ ss_update_rows <- function(ss_id, data, row_ids = NULL, column_ids = NULL, row_o
   for(i in 1:nrow(data)) {
     cell_data = list()
     for(j in (1 + column_offset):ncol(data)) {
-      cell_data[[j - column_offset]] = list(columnId = unlist(column_ids[j]), value = unlist(data[i, j]))
+      cell_value = data[i, j]
+      if (is.na(cell_value)) {
+        # Convert NA to NULL
+        cell_value = NULL
+      }
+      cell_data[[j - column_offset]] = list(columnId = unlist(column_ids[j]), value = cell_value)
     }
     row_data[[i]] = list(id = row_ids[i], cells = cell_data)
   }
