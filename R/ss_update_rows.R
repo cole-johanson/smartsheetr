@@ -4,6 +4,7 @@
 #' @param data A data frame of rows to be updated. Column names should match Smartsheet column names if use_column_names is TRUE.
 #' @param row_ids Optional; a vector of the rowIds corresponding to the rows in the data frame.
 #'                If `NULL`, the row IDs will be obtained from the sheet.
+#' @param row_numbers Optional; a vector of the row numbers corresponding to the rows in the data frame.
 #' @param column_ids Optional; a vector of the columnIds of the smartsheets sheetId.
 #'                   If `NULL` and use_column_names is TRUE, the column IDs will be matched based on the column names in `data`.
 #' @param row_offset The number of rows to skip from the beginning for updating.
@@ -27,11 +28,13 @@
 #' @return A `ss_updaterows_resp` object
 #'
 #' @export
-ss_update_rows <- function(ss_id, data, row_ids = NULL, column_ids = NULL, row_offset = 0, column_offset = 0, use_column_names = TRUE) {
+ss_update_rows <- function(ss_id, data, row_ids = NULL, row_numbers = NULL, column_ids = NULL, row_offset = 0, column_offset = 0, use_column_names = TRUE) {
   ss_id = validate_ss_id(ss_id)
-
   if (!is.data.frame(data) || nrow(data) == 0) {
     stop("data must be a non-empty data frame.")
+  }
+  if (!is.null(row_numbers) && (!is.numeric(row_numbers) || any(row_numbers < 1))) {
+    stop("row_numbers must be a vector of positive numbers.")
   }
   if (!is.null(row_offset) && (!is.numeric(row_offset) || row_offset < 0)) {
     stop("row_offset must be a non-negative number.")
@@ -66,9 +69,19 @@ ss_update_rows <- function(ss_id, data, row_ids = NULL, column_ids = NULL, row_o
   # Fetching Row IDs
   if(is.null(row_ids)) {
     # Fetching the number of rows in the data
-    row_seq = 1:nrow(data)
-    row_seq = row_seq+row_offset
-    row_resp = ss_get(path = paste0('sheets/', ss_id), query = list(rowNumbers=paste(row_seq, collapse = ",")))
+    if (is.null(row_numbers)) {
+      row_seq = 1:nrow(data)
+      row_numbers = row_seq+row_offset
+    }
+    # Convert row numbers to comma separated string
+    row_numbers = paste(row_numbers, collapse = ",")
+    if (nchar(row_numbers) >= 5000) {
+      warning("The number of rows to update is too large. Please use row_ids instead.")
+      row_query = list()
+    } else {
+      list(rowNumbers=row_numbers)
+    }
+    row_resp = ss_get(path = paste0('sheets/', ss_id), query = row_query)
     row_ids = purrr::map(row_resp$content$rows, ~.x$id) |> purrr::list_c()
     # Check if enough row IDs are available
     if (length(row_ids) == 0) {
