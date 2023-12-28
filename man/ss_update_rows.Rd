@@ -8,6 +8,7 @@ ss_update_rows(
   ss_id,
   data,
   row_ids = NULL,
+  row_numbers = NULL,
   column_ids = NULL,
   row_offset = 0,
   column_offset = 0,
@@ -21,6 +22,8 @@ ss_update_rows(
 
 \item{row_ids}{Optional; a vector of the rowIds corresponding to the rows in the data frame.
 If \code{NULL}, the row IDs will be obtained from the sheet.}
+
+\item{row_numbers}{Optional; a vector of the row numbers corresponding to the rows in the data frame.}
 
 \item{column_ids}{Optional; a vector of the columnIds of the smartsheets sheetId.
 If \code{NULL} and use_column_names is TRUE, the column IDs will be matched based on the column names in \code{data}.}
