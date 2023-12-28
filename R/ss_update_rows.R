@@ -36,6 +36,9 @@ ss_update_rows <- function(ss_id, data, row_ids = NULL, row_numbers = NULL, colu
   if (!is.null(row_numbers) && (!is.numeric(row_numbers) || any(row_numbers < 1))) {
     stop("row_numbers must be a vector of positive numbers.")
   }
+  if (length(row_numbers) != nrow(data)) {
+    stop("row_numbers must be the same length as the data.")
+  }
   if (!is.null(row_offset) && (!is.numeric(row_offset) || row_offset < 0)) {
     stop("row_offset must be a non-negative number.")
   }
@@ -79,7 +82,7 @@ ss_update_rows <- function(ss_id, data, row_ids = NULL, row_numbers = NULL, colu
       warning("The number of rows to update is too large. Please use row_ids instead.")
       row_query = list()
     } else {
-      list(rowNumbers=row_numbers)
+      row_query = list(rowNumbers=row_numbers)
     }
     row_resp = ss_get(path = paste0('sheets/', ss_id), query = row_query)
     row_ids = purrr::map(row_resp$content$rows, ~.x$id) |> purrr::list_c()
@@ -105,10 +108,10 @@ ss_update_rows <- function(ss_id, data, row_ids = NULL, row_numbers = NULL, colu
   for(i in 1:nrow(data)) {
     cell_data = list()
     for(j in (1 + column_offset):ncol(data)) {
-      cell_value = data[i, j]
+      cell_value = unlist(data[i, j])
       if (is.na(cell_value)) {
-        # Convert NA to NULL
-        cell_value = NULL
+        # Convert NaNs to NA
+        cell_value = NA
       }
       cell_data[[j - column_offset]] = list(columnId = unlist(column_ids[j]), value = cell_value)
     }
