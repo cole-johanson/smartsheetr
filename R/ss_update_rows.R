@@ -67,8 +67,8 @@ ss_update_rows <- function(ss_id, data, row_ids = NULL, row_numbers = NULL, colu
         rlang::abort("No match found for column names: ", paste(unmatched_columns, collapse = ", "))
       }
       column_ids = sheet_columns |>
-        dplyr::filter(rlang::.data$title %in% data_column_names) |>
-        dplyr::pull(rlang::.data$id)
+        dplyr::filter(.data$title %in% data_column_names) |>
+        dplyr::pull(.data$id)
     } else {
       # Use all column IDs from the sheet
       column_ids = purrr::map(col_resp$content$data, ~.x$id) |> purrr::list_c()

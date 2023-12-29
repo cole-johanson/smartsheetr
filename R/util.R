@@ -25,3 +25,7 @@ to_json <- function(...) {
 random_sheet_name <- function(n=10) {
   paste0(sample(c(LETTERS,letters), size=n, replace=TRUE), collapse="")
 }
+
+#' @noRd
+#' @keywords internal
+utils::globalVariables(c(".data"))
