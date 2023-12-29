@@ -10,7 +10,6 @@ ss_update_rows(
   row_ids = NULL,
   row_numbers = NULL,
   column_ids = NULL,
-  row_offset = 0,
   column_offset = 0,
   use_column_names = TRUE
 )
@@ -21,21 +20,21 @@ ss_update_rows(
 \item{data}{A data frame of rows to be updated. Column names should match Smartsheet column names if use_column_names is TRUE.}
 
 \item{row_ids}{Optional; a vector of the rowIds corresponding to the rows in the data frame.
-If \code{NULL}, the row IDs will be obtained from the sheet.}
+Defaults to \code{NULL}. If \code{NULL}, the row IDs will be obtained from the sheet.}
 
-\item{row_numbers}{Optional; a vector of the row numbers corresponding to the rows in the data frame.}
+\item{row_numbers}{Optional; a vector of the row numbers corresponding to the rows in the data frame.
+This argument can be used to set a row_offset (e.g. \code{row_numbers = 1:nrow(data)+row_offset}).
+Defaults to \code{NULL}. If \code{NULL}, \code{row_ids} will be used. If not \code{NULL}, requires that \code{row_ids} are \code{NULL}.}
 
 \item{column_ids}{Optional; a vector of the columnIds of the smartsheets sheetId.
 If \code{NULL} and use_column_names is TRUE, the column IDs will be matched based on the column names in \code{data}.}
 
-\item{row_offset}{The number of rows to skip from the beginning for updating.
-Defaults to 0 (start at the first row).}
+\item{column_offset}{Optional; The number of columns to skip from the beginning for updating.
+Defaults to 0 (start at the first column).
+If non-zero, requires that \code{column_ids} are \code{NULL} and \code{use_column_names} is \code{FALSE}.}
 
-\item{column_offset}{The number of columns to skip from the beginning for updating.
-Defaults to 0 (start at the first column).}
-
-\item{use_column_names}{Logical; if TRUE, column names in \code{data} are used to match column IDs in the sheet.
-Defaults to TRUE.}
+\item{use_column_names}{Optional; If \code{TRUE}, column names in \code{data} are used to match column IDs in the sheet.
+Defaults to \code{TRUE}.}
 }
 \value{
 A \code{ss_updaterows_resp} object
