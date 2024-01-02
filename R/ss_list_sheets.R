@@ -13,7 +13,8 @@
 #'
 #' @export
 ss_list_sheets <- function() {
-  resp = ss_get(path='sheets')
-  # TODO: Handle pagination
+  path = paste0('sheets?', url_query(list(includeAll="true")))
+  resp = ss_get(path=path)
+
   ss_resp_data_to_dataframe(resp$content$data)
 }

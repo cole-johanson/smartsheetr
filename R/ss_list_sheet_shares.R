@@ -15,6 +15,10 @@
 #' @export
 ss_list_sheet_shares <- function(ss_id) {
   ss_id = validate_ss_id(ss_id)
-  resp = ss_get(path = paste0('sheets/',ss_id,'/shares'))
+
+  base_path = paste0('sheets/',ss_id,'/shares')
+  path = paste0(base_path, '?', url_query(list(includeAll="true")))
+  resp = ss_get(path=path)
+
   ss_resp_data_to_dataframe(resp$content$data)
 }

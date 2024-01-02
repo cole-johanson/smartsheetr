@@ -26,6 +26,18 @@ random_sheet_name <- function(n=10) {
   paste0(sample(c(LETTERS,letters), size=n, replace=TRUE), collapse="")
 }
 
+#' Build a URL query
+#'
+#' @param l A names list of query parameters
+#'
+#' @examples
+#' url_query(list(pageNumber=1, pageSize=100))
+#'
+#' @export
+url_query <- function(l) {
+  paste0(names(l),'=',l,collapse='&')
+}
+
 #' @noRd
 #' @keywords internal
 utils::globalVariables(c(".data"))
