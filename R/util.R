@@ -37,3 +37,7 @@ random_sheet_name <- function(n=10) {
 url_query <- function(l) {
   paste0(names(l),'=',l,collapse='&')
 }
+
+#' @noRd
+#' @keywords internal
+utils::globalVariables(c(".data"))
