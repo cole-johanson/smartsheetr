@@ -20,10 +20,17 @@ ss_get_sheet <- function(ss_id) {
   data = ss_get(path = paste0('sheets/', ss_id), simplifyVector = TRUE, flatten = TRUE)$content
 
   # Extract column IDs, types, and titles for mapping data
+  column_data <- data$columns
   column_ids <- as.character(data$columns$id)
-  types <- purrr::set_names(data$columns$type, column_ids)
-  titles <- purrr::set_names(data$columns$title, column_ids)
-  options <- purrr::set_names(data$columns$options, column_ids)
+  types <- purrr::set_names(column_data$type, column_ids)
+  titles <- purrr::set_names(column_data$title, column_ids)
+
+  # Extract options if present (for picklists)
+  if ("options" %in% names(column_data)) {
+    options <- purrr::set_names(column_data$options, column_ids)
+  } else {
+    options <- rep(NULL, length(types))
+  }
 
   # Transform the data into a tidy format
   df <- purrr::map(data$rows$cells, ~ tibble::as_tibble(t(purrr::set_names(.x$value, .x$columnId)))) |>
