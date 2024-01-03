@@ -48,6 +48,12 @@ ss_api <- function(FUN, ...) {
     rlang::abort("Environment variable `SMARTSHEET_API_TOKEN` must be set. See https://github.com/cole-johanson/smartsheetr#installation")
   }
 
+  # Check if args are supplied for JSON parsing and assign defaults if not
+  simplifyVector = ifelse('simplifyVector' %in% names(args), args[['simplifyVector']], FALSE)
+  flatten = ifelse('flatten' %in% names(args), args[['flatten']], FALSE)
+  # Remove these arguments from the list before passing to the http verb function
+  args = args[!names(args) %in% c('simplifyVector', 'flatten')]
+
   args = append(
     args,
     list(
@@ -66,7 +72,7 @@ ss_api <- function(FUN, ...) {
   resp = do.call(FUN, args)
 
   if(httr::http_type(resp) == "application/json") {
-    parsed = jsonlite::fromJSON(httr::content(resp, "text"), simplifyVector = FALSE)
+    parsed = jsonlite::fromJSON(httr::content(resp, "text"), simplifyVector = simplifyVector, flatten = flatten)
 
     if (httr::status_code(resp) != 200) {
       rlang::abort(
