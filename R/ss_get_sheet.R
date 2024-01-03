@@ -1,18 +1,18 @@
-#' Get Data from a Smartsheet
+#' Get Sheet Data from a Smartsheet
 #'
-#' @description Gets data from a specified Smartsheet using the Smartsheet API and returns it as a tibble.
+#' @description Gets sheet data from a specified Smartsheet using the Smartsheet API and returns it as a tibble.
 #' @param ss_id string, The ID of the Smartsheet from which data is to be fetched.
 #' @return A `tibble` containing the data from the specified Smartsheet.
 #' @examples
 #' \dontrun{
 #' df = mtcars
 #' ss_id = ss_sheetid(ss_write_sheet(paste0("smartsheetr-example-",random_sheet_name()), data=df))
-#' ss_get_data(ss_id)
+#' ss_get_sheet(ss_id)
 #' # clean up
 #' ss_delete_sheet(ss_id)
 #' }
 #' @export
-ss_get_data <- function(ss_id) {
+ss_get_sheet <- function(ss_id) {
   # Validate the Smartsheet ID
   ss_id = validate_ss_id(ss_id)
 
