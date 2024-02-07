@@ -9,6 +9,8 @@ Description: Interact with the 'Smartsheet' platform through the 'Smartsheet'
   interact with 'Smartsheet' sheets directly within R. 
 License: MIT + file LICENSE
 Encoding: UTF-8
+URL: https://github.com/cole-johanson/smartsheetr
+BugReports: https://github.com/cole-johanson/smartsheetr/issues
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Depends:
